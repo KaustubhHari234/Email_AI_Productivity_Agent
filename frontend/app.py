@@ -7,12 +7,40 @@ from pathlib import Path
 # Add backend to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from backend.main import EmailProductivityBackend
-from backend.models.email import EmailCategory
-from frontend.components.email_list import render_email_list, render_email_details
-from frontend.components.prompt_editor import render_prompt_editor
-from frontend.components.agent_chat import render_agent_chat
-from frontend.components.draft_editor import render_draft_editor
+try:
+    from backend.main import EmailProductivityBackend
+    from backend.models.email import EmailCategory
+    from frontend.components.email_list import render_email_list, render_email_details
+    from frontend.components.prompt_editor import render_prompt_editor
+    from frontend.components.agent_chat import render_agent_chat
+    from frontend.components.draft_editor import render_draft_editor
+except Exception as e:
+    # This will catch Pydantic validation errors from Settings initialization
+    st.set_page_config(page_title="Configuration Error", page_icon="⚠️")
+    st.error("⚠️ Application Configuration Error")
+    st.markdown(
+        """
+        The application failed to start because of missing configuration.
+        
+        **If you are running on Streamlit Cloud:**
+        1. Go to your app dashboard
+        2. Click on 'Manage app'
+        3. Click on the three dots menu -> 'Settings'
+        4. Go to 'Secrets'
+        5. Add the following secrets:
+        ```toml
+        GEMINI_API_KEY = "your-key-here"
+        PINECONE_API_KEY = "your-key-here"
+        ```
+        
+        **If you are running locally:**
+        Ensure you have a `.env` file with these variables.
+        
+        Full error details:
+        """
+    )
+    st.code(str(e))
+    st.stop()
 
 
 # Page configuration

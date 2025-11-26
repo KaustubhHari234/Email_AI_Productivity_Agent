@@ -139,6 +139,26 @@ streamlit run frontend/app.py
 The UI will open in your browser at `http://localhost:8501`.
 
 
+## ☁️ Deployment on Streamlit Cloud
+
+1.  **Push your code to GitHub.**
+2.  **Log in to [Streamlit Cloud](https://streamlit.io/cloud).**
+3.  **Create a new app** and select your repository.
+4.  **Configure Secrets:**
+    - Before deploying (or in the app settings after deployment), go to **"Advanced Settings"** -> **"Secrets"**.
+    - Add the contents of your `.env` file here in TOML format:
+    ```toml
+    GEMINI_API_KEY = "your_gemini_api_key_here"
+    PINECONE_API_KEY = "your_pinecone_api_key_here"
+    PINECONE_ENVIRONMENT = "us-east-1"
+    PINECONE_INDEX_NAME = "email-agent"
+    MONGODB_URI = "your_mongodb_connection_string"
+    MONGODB_DATABASE = "email-agent"
+    ```
+5.  **Deploy!**
+
+
+
 ## 📥 How to Use
 
 ### 1. Load Emails (Phase 1)
