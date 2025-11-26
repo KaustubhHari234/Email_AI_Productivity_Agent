@@ -1,0 +1,354 @@
+/* Email Productivity Agent - Premium Dark Theme */
+
+/* Global Variables */
+:root {
+    /* Core Colors */
+    --bg-dark: #0e1117;
+    --bg-card: #1f2937;
+    --bg-hover: #374151;
+
+    /* Accents */
+    --primary: #7c3aed;
+    /* Violet */
+    --primary-hover: #6d28d9;
+    --secondary: #3b82f6;
+    /* Blue */
+    --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+
+    /* Text */
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+
+    /* Status */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+
+    /* Borders */
+    --border-color: #374151;
+    --border-focus: #7c3aed;
+}
+
+/* Global Reset & Base Styles */
+.stApp {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    max-width: 1200px;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em;
+}
+
+h1 {
+    font-size: 2.5rem !important;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem !important;
+}
+
+h2 {
+    font-size: 1.8rem !important;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-top: 2rem !important;
+}
+
+h3 {
+    font-size: 1.4rem !important;
+    color: var(--text-secondary) !important;
+}
+
+p,
+li,
+span,
+label {
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Buttons */
+.stButton>button {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.stButton>button:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    color: white;
+}
+
+.stButton>button:active {
+    transform: translateY(0);
+}
+
+/* Primary Button Styling (Custom Logic needed in Python to apply class, or generic override) */
+/* Assuming standard Streamlit primary buttons */
+.stButton>button[kind="primary"] {
+    background: var(--accent-gradient);
+    border: none;
+    color: white;
+}
+
+.stButton>button[kind="primary"]:hover {
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
+/* Inputs (Text, Select, Area) */
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea,
+.stSelectbox>div>div>select,
+.stSelectbox>div>div>div {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.stTextInput>div>div>input:focus,
+.stTextArea>div>div>textarea:focus,
+.stSelectbox>div>div>select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #000000;
+    /* Deep black for contrast */
+    border-right: 1px solid var(--border-color);
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] p {
+    color: white !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 1rem;
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 3rem;
+    white-space: nowrap;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-radius: 6px 6px 0 0;
+    border: none;
+    font-weight: 600;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+}
+
+/* Email Cards */
+.email-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.email-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.email-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: var(--text-secondary);
+}
+
+.email-card:hover::before {
+    background: var(--primary);
+}
+
+.email-card.selected {
+    border-color: var(--primary);
+    background-color: rgba(124, 58, 237, 0.05);
+}
+
+.email-card.selected::before {
+    background: var(--accent-gradient);
+}
+
+.email-sender {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.email-subject {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.email-preview {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Chat Interface */
+.chat-message {
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    max-width: 85%;
+}
+
+.chat-message.user {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    margin-left: auto;
+    color: var(--text-primary);
+}
+
+.chat-message.agent {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    margin-right: auto;
+    color: var(--text-primary);
+}
+
+/* Expanders */
+.streamlit-expanderHeader {
+    background-color: var(--bg-card);
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.streamlit-expanderHeader:hover {
+    border-color: var(--primary);
+}
+
+.streamlit-expanderContent {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 1rem;
+}
+
+/* Category Badges */
+.category-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.category-urgent {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.category-action {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.category-info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.category-spam {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: #9ca3af;
+    border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+/* Metrics */
+[data-testid="stMetricValue"] {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--text-secondary) !important;
+    font-size: 0.9rem !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-hover);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}

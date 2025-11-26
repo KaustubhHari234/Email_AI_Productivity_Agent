@@ -1,0 +1,162 @@
+[
+  {
+    "id": "email_001",
+    "sender": "john.doe@techcorp.com",
+    "recipient": "user@company.com",
+    "subject": "Urgent: Q4 Budget Review Meeting",
+    "body": "Hi Team,\n\nWe need to schedule an urgent meeting to review the Q4 budget. The deadline for submission is this Friday, and we still have several items that need approval.\n\nCan everyone please confirm their availability for tomorrow at 2 PM? We'll need to go through:\n1. Marketing budget allocation\n2. Engineering headcount approvals\n3. Capital expenditure requests\n\nPlease come prepared with your department's numbers.\n\nBest regards,\nJohn",
+    "timestamp": "2024-11-20T09:30:00",
+    "has_attachments": true,
+    "attachment_names": [
+      "Q4_Budget_Draft.xlsx",
+      "Department_Spending.pdf"
+    ]
+  },
+  {
+    "id": "email_002",
+    "sender": "sarah.marketing@company.com",
+    "recipient": "user@company.com",
+    "subject": "Campaign Performance Report - October",
+    "body": "Hello,\n\nPlease find attached the performance report for our October marketing campaigns. Overall, we saw a 23% increase in engagement compared to September.\n\nKey highlights:\n- Email open rate: 28.5% (up from 22%)\n- Social media engagement: +35%\n- Website traffic: 125K visitors\n- Lead generation: 450 qualified leads\n\nLet me know if you need any additional analysis or have questions about the data.\n\nThanks,\nSarah",
+    "timestamp": "2024-11-19T14:15:00",
+    "has_attachments": true,
+    "attachment_names": [
+      "October_Campaign_Report.pdf"
+    ]
+  },
+  {
+    "id": "email_003",
+    "sender": "notifications@jira.atlassian.com",
+    "recipient": "user@company.com",
+    "subject": "[JIRA] You have been assigned to PROJ-1234",
+    "body": "You have been assigned to issue PROJ-1234.\n\nTitle: Implement user authentication with OAuth2\nPriority: High\nDue Date: November 25, 2024\nReporter: Mike Johnson\n\nDescription:\nImplement OAuth2 authentication flow for the new user portal. This should support Google and Microsoft authentication providers.\n\nView issue: https://company.atlassian.net/browse/PROJ-1234",
+    "timestamp": "2024-11-18T16:45:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_004",
+    "sender": "hr@company.com",
+    "recipient": "user@company.com",
+    "subject": "Annual Performance Review - Action Required",
+    "body": "Dear Team Member,\n\nIt's time for your annual performance review! Please complete the following by November 30th:\n\n1. Self-assessment form (link in employee portal)\n2. Peer feedback requests (minimum 3 colleagues)\n3. Goal setting worksheet for 2025\n\nYour manager will schedule a 1-on-1 meeting in early December to discuss your review.\n\nIf you have any questions, please reach out to the HR team.\n\nBest regards,\nHR Department",
+    "timestamp": "2024-11-17T10:00:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_005",
+    "sender": "deals@retailstore.com",
+    "recipient": "user@company.com",
+    "subject": "Black Friday Sale - Up to 70% Off Everything!",
+    "body": "🎉 BLACK FRIDAY MEGA SALE! 🎉\n\nDon't miss out on our biggest sale of the year!\n\n✨ Up to 70% off on ALL products\n✨ Free shipping on orders over $50\n✨ Extra 10% off with code: BLACKFRI10\n\nShop now: www.retailstore.com/blackfriday\n\nSale ends Monday! Limited stock available!\n\n---\nUnsubscribe | View in browser",
+    "timestamp": "2024-11-21T08:00:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_006",
+    "sender": "david.engineer@company.com",
+    "recipient": "user@company.com",
+    "subject": "Code Review Request: User Authentication Module",
+    "body": "Hey,\n\nI've completed the user authentication module and created a pull request for review. Could you please take a look when you get a chance?\n\nPR Link: https://github.com/company/project/pull/456\n\nChanges include:\n- JWT token implementation\n- Password reset functionality\n- Session management\n- Unit tests (95% coverage)\n\nLet me know if you have any feedback or concerns.\n\nThanks!\nDavid",
+    "timestamp": "2024-11-20T11:20:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_007",
+    "sender": "lisa.client@externacorp.com",
+    "recipient": "user@company.com",
+    "subject": "Project Milestone Feedback",
+    "body": "Hi,\n\nThank you for delivering Milestone 2 ahead of schedule! The team is very impressed with the quality of work.\n\nWe have a few minor feedback items:\n1. Could we adjust the dashboard color scheme to match our brand guidelines?\n2. The export functionality works great, but can we add CSV format as well?\n3. Mobile responsiveness looks good on iOS but needs tweaking for Android tablets\n\nThese are not blockers for the next milestone. We can discuss in our meeting next Tuesday.\n\nGreat job!\nLisa",
+    "timestamp": "2024-11-19T15:30:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_008",
+    "sender": "security@company.com",
+    "recipient": "user@company.com",
+    "subject": "URGENT: Security Alert - Suspicious Login Attempt",
+    "body": "SECURITY ALERT\n\nWe detected a suspicious login attempt to your account:\n\nTime: November 21, 2024 at 3:45 AM EST\nLocation: Moscow, Russia\nDevice: Unknown Windows PC\nIP Address: 185.220.101.45\n\nWe blocked this login attempt. If this was you, please verify your identity. If not, we recommend:\n\n1. Change your password immediately\n2. Enable two-factor authentication\n3. Review recent account activity\n\nSecure your account: https://company.com/security/verify\n\nIT Security Team",
+    "timestamp": "2024-11-21T09:15:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_009",
+    "sender": "newsletter@techblog.com",
+    "recipient": "user@company.com",
+    "subject": "This Week in AI: GPT-5 Rumors and More",
+    "body": "This Week in AI - November 20, 2024\n\n📰 Top Stories:\n\n1. OpenAI Hints at GPT-5 Development\n   Rumors suggest major improvements in reasoning capabilities.\n\n2. Google Releases Gemini 2.0 Pro\n   New multimodal features and faster processing.\n\n3. AI Regulation Update: EU AI Act Implementation\n   What it means for developers and businesses.\n\n4. Breaking: Microsoft Copilot Gets Major Upgrade\n   Enhanced coding assistance and debugging tools.\n\nRead more at techblog.com\n\n---\nManage preferences | Unsubscribe",
+    "timestamp": "2024-11-20T06:00:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_010",
+    "sender": "emily.pm@company.com",
+    "recipient": "user@company.com",
+    "subject": "Sprint Planning for Sprint 23",
+    "body": "Hi Team,\n\nLet's plan our next sprint! Please review the backlog and add your estimates before our planning meeting on Monday.\n\nProposed sprint goals:\n1. Complete user dashboard redesign\n2. Implement real-time notifications\n3. Fix critical bugs from last sprint\n4. Performance optimization (database queries)\n\nMeeting details:\nDate: Monday, November 25\nTime: 10:00 AM - 12:00 PM\nLocation: Conference Room B / Zoom\n\nPlease come prepared with your capacity and any blockers.\n\nThanks,\nEmily",
+    "timestamp": "2024-11-18T13:00:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_011",
+    "sender": "admin@conferencegroup.com",
+    "recipient": "user@company.com",
+    "subject": "Your Speaker Proposal Has Been Accepted!",
+    "body": "Congratulations!\n\nWe're excited to inform you that your speaker proposal for TechConf 2025 has been accepted!\n\nTalk: \"Building Scalable AI Applications with Python\"\nDate: March 15, 2025\nDuration: 45 minutes\nRoom: Main Hall\n\nNext steps:\n1. Confirm your attendance by December 1st\n2. Submit your presentation outline by January 15th\n3. Final slides due February 28th\n\nWe'll cover your travel and accommodation. Details will be sent separately.\n\nLooking forward to your presentation!\n\nConference Team",
+    "timestamp": "2024-11-17T14:30:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_012",
+    "sender": "finance@company.com",
+    "recipient": "user@company.com",
+    "subject": "Expense Report ER-2024-1156 Approved",
+    "body": "Your expense report has been approved.\n\nReport ID: ER-2024-1156\nTotal Amount: $1,245.67\nStatus: Approved\nReimbursement Date: November 28, 2024\n\nBreakdown:\n- Client lunch: $156.34\n- Conference registration: $899.00\n- Travel (Uber): $190.33\n\nThe amount will be deposited to your account ending in 4892.\n\nQuestions? Contact finance@company.com\n\nFinance Department",
+    "timestamp": "2024-11-19T09:45:00",
+    "has_attachments": true,
+    "attachment_names": [
+      "Expense_Report_ER-2024-1156.pdf"
+    ]
+  },
+  {
+    "id": "email_013",
+    "sender": "michael.cto@company.com",
+    "recipient": "user@company.com",
+    "subject": "Invitation: Architecture Review Meeting",
+    "body": "Hi,\n\nI'd like to schedule an architecture review meeting to discuss our migration to microservices.\n\nAgenda:\n1. Current monolith pain points\n2. Proposed microservices architecture\n3. Migration strategy and timeline\n4. Technology stack decisions\n5. Team structure and ownership\n\nPlease block off:\nDate: Wednesday, November 27\nTime: 2:00 PM - 4:00 PM\nLocation: Zoom (link to follow)\n\nLooking forward to your input.\n\nBest,\nMichael",
+    "timestamp": "2024-11-18T16:00:00",
+    "has_attachments": true,
+    "attachment_names": [
+      "Microservices_Proposal.pdf",
+      "Current_Architecture.png"
+    ]
+  },
+  {
+    "id": "email_014",
+    "sender": "support@cloudprovider.com",
+    "recipient": "user@company.com",
+    "subject": "Scheduled Maintenance Notification",
+    "body": "SCHEDULED MAINTENANCE NOTICE\n\nWe will be performing scheduled maintenance on our infrastructure.\n\nMaintenance Window:\nDate: November 24, 2024\nTime: 2:00 AM - 6:00 AM EST\nDuration: Up to 4 hours\n\nAffected Services:\n- Database clusters (us-east-1)\n- Storage services\n- API gateway\n\nExpected Impact:\n- Brief service interruptions (2-3 minutes)\n- Increased latency during maintenance\n- Read replicas remain available\n\nNo action required. We'll send a completion notice once maintenance is done.\n\nCloud Provider Support Team",
+    "timestamp": "2024-11-17T11:00:00",
+    "has_attachments": false,
+    "attachment_names": []
+  },
+  {
+    "id": "email_015",
+    "sender": "rachel.designer@company.com",
+    "recipient": "user@company.com",
+    "subject": "Design System Updates - New Components",
+    "body": "Hey team!\n\nI've just published updates to our design system with some new components:\n\n🎨 New Components:\n- Data tables with sorting/filtering\n- Toast notifications\n- Modal dialogs (small, medium, large)\n- File upload widget\n- Progress indicators\n\n📚 Documentation:\nhttps://design.company.com/components\n\nAll components are available in Figma and implemented in our React library (v2.5.0).\n\nLet me know if you have questions or need help implementing these!\n\nRachel",
+    "timestamp": "2024-11-20T10:30:00",
+    "has_attachments": false,
+    "attachment_names": []
+  }
+]
