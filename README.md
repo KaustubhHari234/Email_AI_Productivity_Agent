@@ -1,215 +1,350 @@
-# 📧 AI Email Productivity Agent
+<div align="center">
 
-An intelligent, prompt-driven email management system powered by **Google Gemini**, **Pinecone**, and **MongoDB**.  
-This agent automates email categorization, action-item extraction, semantic search, and professional reply drafting — all through a clean FastAPI backend and Streamlit UI.
+# Email AI Productivity Agent
 
----
+### A Multi-Agent, Prompt-Driven Inbox Assistant
 
-## 🚀 Features
+*Categorize emails, extract action items, search semantically, and draft replies — all through a fully customizable Prompt Brain powered by Google Gemini, Pinecone, and MongoDB.*
 
-- **🧠 Prompt-Driven Intelligence**  
-  Fully customizable “Prompt Brain” that controls how the AI categorizes emails, extracts tasks, and writes drafts.
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.40-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Google Gemini](https://img.shields.io/badge/Gemini%202.0%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+[![LangChain](https://img.shields.io/badge/LangChain-0.3-1C3C3C?logo=langchain&logoColor=white)](https://www.langchain.com/)
+[![Pinecone](https://img.shields.io/badge/Pinecone-VectorDB-blueviolet)](https://www.pinecone.io/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- **📥 Smart Email Ingestion**  
-  Load mock inbox data (or plug in real email sources) and automatically generate:  
-  - Categories (Urgent, Action Required, Informational…)  
-  - Priorities  
-  - Extracted tasks & follow-ups  
-
-- **🔍 RAG-Powered Search (Pinecone)**  
-  Embed and store email content for semantic search:  
-  _“Find emails related to customer issues”_  
-  _“Show all urgent emails from last week”_
-
-- **💬 Chat-Based Inbox Assistant**  
-  Interact conversationally with your inbox:
-  - Summaries  
-  - Task extraction  
-  - Email-level Q&A  
-  - Inbox-wide reasoning  
-
-- **✍️ Smart Draft Generation**  
-  Auto-draft reply emails or new emails using your customized tone and full email context.
-
-- **🎛️ Streamlit Frontend**  
-  Simple, fast UI for browsing emails, chatting with the agent, and reviewing/editing drafts.
+</div>
 
 ---
 
-## 🏗️ Project Structure
+## Overview
+
+**Email AI Productivity Agent** is an end-to-end inbox copilot that turns a chaotic mailbox into a structured, queryable knowledge base. Four specialized agents collaborate behind a single FastAPI orchestrator and a tab-based Streamlit UI to help you triage, search, and respond to email at the speed of thought.
+
+The entire system is steered by a **Prompt Brain** — a small set of editable prompts persisted in MongoDB. Tweak the prompts, and the agents' behavior changes instantly across categorization, action-item extraction, and reply drafting.
+
+---
+
+## Highlights
+
+- **Four collaborating agents** — categorization, action-item extraction, RAG Q&A, and draft generation
+- **Prompt Brain** — versioned, hot-swappable prompts stored in MongoDB control every agent's behavior
+- **Hybrid storage** — Pinecone for semantic recall, MongoDB for structured records (emails, prompts, drafts)
+- **Domain-quality embeddings** — Google `text-embedding-004` via LangChain wrapper
+- **Resilient LLM calls** — Tenacity-backed retry with exponential backoff on Gemini failures
+- **Strict JSON contracts** — categorization & action-item agents return parseable JSON the orchestrator can trust
+- **Tabbed Streamlit UI** — Inbox, Prompt Brain, Agent Chat, and Drafts in one cohesive workspace
+- **Zero send-by-default safety** — drafts are always saved, never auto-sent
+
+---
+
+## Architecture
 
 ```
-email-productivity-agent/
-├── backend/                 # FastAPI backend
-│   ├── config/              # Configuration settings
-│   ├── models/              # Pydantic models
-│   ├── routers/             # API endpoints
-│   ├── services/            # Business logic (LLM, Vector, DB)
-│   └── main.py              # Application entry point
-├── data/                    # Data storage
-│   └── mock_emails.json     # Sample data
-├── frontend/                # Streamlit frontend
-│   ├── components/          # UI components
-│   ├── styles/              # CSS styles
-│   └── app.py               # Frontend entry point
-├── .env                     # Environment variables
-├── .gitignore               # Git ignore rules
-├── README.md                # Project documentation
-└── requirements.txt         # Python dependencies
+┌──────────────────────────────────────────────────────────────────┐
+│                         Streamlit Frontend                       │
+│   Inbox  │  Prompt Brain  │  Agent Chat  │  Drafts               │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │
+                   ┌─────────▼──────────┐
+                   │   FastAPI Backend  │
+                   │ EmailProductivity- │
+                   │      Backend       │
+                   └─────────┬──────────┘
+        ┌────────────────────┼────────────────────┐
+        │                    │                    │
+┌───────▼──────┐   ┌─────────▼────────┐   ┌──────▼──────┐
+│ Categoriz-   │   │  Action Item     │   │  RAG Agent  │
+│ ation Agent  │   │     Agent        │   │             │
+└──────────────┘   └──────────────────┘   └─────────────┘
+        │                    │                    │
+        └────────────────────┼────────────────────┘
+                             │
+        ┌────────────────────┼────────────────────┐
+        │                    │                    │
+┌───────▼──────┐   ┌─────────▼────────┐   ┌──────▼──────┐
+│ LLMService   │   │ VectorService    │   │ DatabaseSvc │
+│ (Gemini)     │   │  (Pinecone)      │   │  (MongoDB)  │
+└──────────────┘   └──────────────────┘   └─────────────┘
+                             │
+                   ┌─────────▼──────────┐
+                   │    Draft Agent     │
+                   └────────────────────┘
+```
+
+### Three-phase processing pipeline
+
+| Phase | Stage | What happens |
+|-------|-------|--------------|
+| **1** | Ingestion & Knowledge Base | Emails → categorized → action items extracted → embedded → upserted into Pinecone & MongoDB |
+| **2** | Email Processing (RAG) | Free-form questions → top-k vector retrieval → Gemini answers with sources & confidence |
+| **3** | Draft Generation | Reply / new email / refine workflows → drafts saved to MongoDB (never auto-sent) |
+
+---
+
+## The Four Agents
+
+| Agent | Responsibility | Output Contract |
+|-------|----------------|-----------------|
+| **CategorizationAgent** | Classify each email | `URGENT`, `ACTION_REQUIRED`, `INFORMATIONAL`, `SPAM`, `UNCATEGORIZED` + reason |
+| **ActionItemAgent** | Extract follow-ups | List of `{description, priority, deadline, completed}` |
+| **RAGAgent** | Answer inbox questions | `{answer, sources, confidence}` from top-k Pinecone matches |
+| **DraftAgent** | Compose replies & new emails | `EmailDraft` with subject, body, suggested follow-ups |
+
+Each agent reads its **active prompt** from MongoDB at runtime — no redeploy needed when you edit a prompt in the Prompt Brain UI.
+
+---
+
+## Project Structure
+
+```
+Email_AI_Productivity_Agent/
+│
+├── backend/                         FastAPI orchestrator
+│   ├── main.py                      EmailProductivityBackend + REST endpoints
+│   ├── agents/
+│   │   ├── categorization_agent.py  Category + reason
+│   │   ├── action_item_agent.py     Task extraction
+│   │   ├── rag_agent.py             Pinecone-backed Q&A
+│   │   └── draft_agent.py           Reply / new / refine drafts
+│   ├── services/
+│   │   ├── llm_service.py           Gemini wrapper (with Tenacity retries)
+│   │   ├── vector_service.py        Pinecone Serverless + Google embeddings
+│   │   ├── database_service.py      MongoDB collections & indexes
+│   │   └── email_service.py         Load mock emails + full pipeline
+│   ├── models/
+│   │   ├── email.py                 Email, ActionItem, EmailCategory enum
+│   │   ├── prompt.py                PromptConfig, PromptLibrary
+│   │   └── draft.py                 EmailDraft
+│   ├── config/
+│   │   └── settings.py              Pydantic-settings (env-driven)
+│   └── utils/
+│       └── helpers.py
+│
+├── frontend/                        Streamlit UI
+│   ├── app.py                       4-tab dashboard
+│   ├── components/
+│   │   ├── email_list.py            Inbox list & details
+│   │   ├── prompt_editor.py         Prompt Brain editor
+│   │   ├── agent_chat.py            RAG conversation panel
+│   │   └── draft_editor.py          Draft authoring & refinement
+│   └── styles/custom.css
+│
+├── data/
+│   ├── mock_emails.json             Seed inbox for demos
+│   └── knowledge_base/              Future: real-source connectors
+│
+├── tests/
+│   ├── test_agents.py
+│   └── test_services.py
+│
+├── main.py                          Hello-world entrypoint
+├── requirements.txt
+├── pyproject.toml
+└── README.md
 ```
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
-- 🐍 **Python 3.10+**
-- ⚡ **FastAPI** — backend API services  
-- 🧠 **Google Gemini** — LLM + embeddings  
-- 🔎 **Pinecone Serverless** — vector search for RAG  
-- 🐘 **MongoDB / Atlas** — storage for prompts, emails, drafts  
-- 🖥️ **Streamlit** — frontend dashboard  
-- 📦 **uv** — dependency & environment manager
-
----
-
-## ⚙️ Prerequisites
-
-You will need:
-
-- Python ≥ 3.10  
-- A running MongoDB instance (local or Atlas)  
-- Pinecone API key + serverless index  
-- Google Gemini API key  
-- (Optional) Docker, if containerizing
+| Layer | Technology |
+|-------|------------|
+| **Backend API** | FastAPI 0.115, Uvicorn |
+| **Frontend** | Streamlit 1.40 |
+| **LLM** | Google Gemini 2.0 Flash (`google-generativeai` 0.8.3) |
+| **Embeddings** | Google `text-embedding-004` via `langchain-google-genai` |
+| **Vector Store** | Pinecone (Serverless, AWS, cosine, dim=768) |
+| **Database** | MongoDB (`pymongo` 4.9 sync, `motor` 3.6 async) |
+| **Orchestration** | LangChain Core / Community 0.3.7 |
+| **Validation** | Pydantic 2 + `pydantic-settings` |
+| **Resilience** | Tenacity (exponential backoff, 3 attempts) |
+| **Testing** | Pytest + pytest-asyncio |
 
 ---
 
-## Setup
+## Getting Started
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd email-productivity-agent
-    ```
+### 1. Prerequisites
 
-2.  **Create a virtual environment:**
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-    ```
+- Python **3.10+**
+- A **MongoDB** connection (local or Atlas)
+- A **Pinecone** Serverless account + API key
+- A **Google AI Studio** API key for Gemini
 
-3.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+### 2. Install
 
-4.  **Configure Environment Variables:**
-    Create a `.env` file in the root directory and add the following keys:
-
-    ```env
-    # Google Gemini
-    GEMINI_API_KEY=your_gemini_api_key_here
-
-    # Pinecone Vector DB
-    PINECONE_API_KEY=your_pinecone_api_key_here
-    PINECONE_ENVIRONMENT=us-east-1  # Or your specific region
-    PINECONE_INDEX_NAME=email-agent
-
-    # MongoDB
-    MONGODB_URI=your_mongodb_connection_string
-    MONGODB_DATABASE=email-agent
-    ```
-
-## Running the Application
-
-The application consists of a FastAPI backend and a Streamlit frontend. You need to run both terminals.
-
-### 1. Start the Backend
-Open a terminal and run:
 ```bash
-uvicorn backend.main:app --reload
-```
-The backend will start at `http://localhost:8000`.
+git clone https://github.com/<your-username>/Email_AI_Productivity_Agent.git
+cd Email_AI_Productivity_Agent
 
-### 2. Start the Frontend
-Open a second terminal and run:
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+### 3. Configure environment
+
+Create a `.env` file at the project root:
+
+```env
+# Google Gemini
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.0-flash
+GEMINI_TEMPERATURE=0.7
+GEMINI_MAX_TOKENS=2048
+EMBEDDING_MODEL=models/text-embedding-004
+
+# Pinecone Serverless
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENVIRONMENT=us-east-1
+PINECONE_INDEX_NAME=email-agent
+PINECONE_DIMENSION=768
+PINECONE_METRIC=cosine
+
+# MongoDB
+MONGODB_URI=mongodb+srv://<user>:<pass>@<cluster>.mongodb.net
+MONGODB_DATABASE=email-agent
+
+# Application
+LOG_LEVEL=INFO
+MAX_EMAILS_DISPLAY=50
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+```
+
+### 4. Run the backend
+
+```bash
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+OpenAPI docs: **http://localhost:8000/docs**
+
+### 5. Run the Streamlit UI
+
 ```bash
 streamlit run frontend/app.py
 ```
-The UI will open in your browser at `http://localhost:8501`.
 
+Open **http://localhost:8501** and click **Load Emails** in the sidebar to seed the system from `data/mock_emails.json`.
 
-## ☁️ Deployment on Streamlit Cloud
+---
 
-1.  **Push your code to GitHub.**
-2.  **Log in to [Streamlit Cloud](https://streamlit.io/cloud).**
-3.  **Create a new app** and select your repository.
-4.  **Configure Secrets:**
-    - Before deploying (or in the app settings after deployment), go to **"Advanced Settings"** -> **"Secrets"**.
-    - Add the contents of your `.env` file here in TOML format:
-    ```toml
-    GEMINI_API_KEY = "your_gemini_api_key_here"
-    PINECONE_API_KEY = "your_pinecone_api_key_here"
-    PINECONE_ENVIRONMENT = "us-east-1"
-    PINECONE_INDEX_NAME = "email-agent"
-    MONGODB_URI = "your_mongodb_connection_string"
-    MONGODB_DATABASE = "email-agent"
-    ```
-5.  **Deploy!**
+## REST API
 
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET`  | `/` | Health check |
+| `POST` | `/emails/process?source=mock` | Run the full ingestion pipeline |
+| `GET`  | `/emails` | List emails (filter by category, paginate) |
+| `GET`  | `/emails/{email_id}` | Fetch a single email |
+| `GET`  | `/inbox/summary` | LLM-generated inbox summary |
+| `GET`  | `/inbox/query?q=...` | RAG-powered semantic Q&A |
+| `GET`  | `/action-items` | Aggregated action items, priority-sorted |
+| `GET`  | `/drafts` | List saved drafts |
 
+### Sample RAG response
 
-## 📥 How to Use
+```json
+{
+  "answer": "Three urgent emails reference the Q2 roadmap deadline...",
+  "sources": [
+    { "id": "e_142", "score": 0.91, "metadata": { "subject": "Q2 Roadmap", "sender": "alice@acme.com" } }
+  ],
+  "confidence": "high"
+}
+```
 
-### 1. Load Emails (Phase 1)
-- Go to “Email Ingestion & Prompt Brain” section.
-- Click **Load & Process Mock Emails**.
-- Emails will be:
-    - Categorized
-    - Embedded using Gemini
-    - Stored in Pinecone & MongoDB
+---
 
-### 2. Configure the Prompt Brain
-- You can edit three core prompts:
-    - Categorization
-    - Action Item Extraction
-    - Auto-Reply Drafting
-- Changes apply instantly across the system.
+## How the Prompt Brain Works
 
-### 3. Chat With the Email Agent (Phase 2)
-- Example queries:
-    - “Summarize this email.”
-    - “What tasks do I need to do?”
-    - “Show me all urgent emails.”
-    - “Find emails about project roadmap.”
-- The agent uses:
-    - Email text
-    - Your Prompt Brain rules
-    - Pinecone RAG context
-    - Gemini reasoning
+Three prompts steer the system. Each one is stored as a versioned `PromptConfig` in MongoDB:
 
-### 4. Generate Draft Replies (Phase 3)
-- Select an email → add instructions → **Generate Draft**
-- OR create a new email from scratch
-- Edit subject/body in the UI
-- Drafts are stored safely — never sent automatically
+| Prompt Type | Used By | Default Behavior |
+|-------------|---------|------------------|
+| `categorization` | CategorizationAgent | Bucket emails into 4 categories with a reason |
+| `action_item` | ActionItemAgent | Extract tasks with priority and deadline |
+| `reply_draft` | DraftAgent | Generate professional, concise replies |
 
-## 🧭 Roadmap / Future Enhancements
+Edit any prompt in the **Prompt Brain** tab, hit save, and the next agent invocation reads the new prompt from MongoDB — no restart, no redeploy.
 
-- 📬 Gmail / Outlook real inbox integration
-- 🧠 Domain-specific prompt templates (sales, HR, dev, marketing)
-- 🗃️ Multi-user accounts + authentication
-- 📊 Analytics dashboard
-- 📝 Improved drafting UI (tone presets, markdown editor)
+---
 
-## 🛡️ Security Notes
+## Streamlit Workflow
 
-- Do NOT commit `.env` or API keys.
-- Rotate keys if leaked.
-- Use secret managers in production.
-- Apply usage limits for Gemini & Pinecone.
+1. **Load Emails** — pull mock inbox, run categorization + action extraction + Pinecone upsert
+2. **Inbox tab** — browse, filter, view details, get one-click summaries
+3. **Prompt Brain tab** — edit categorization, action-item, and reply prompts
+4. **Agent Chat tab** — ask anything: *"What did Sarah send last week?"*, *"Show me urgent items"*, *"Summarize the budget thread"*
+5. **Drafts tab** — generate replies from any email, draft new emails from instructions, refine iteratively
 
-## 📄 License
+---
 
-Distributed under the MIT License.
-Feel free to use, modify, and distribute with attribution.
+## Deployment — Streamlit Cloud
+
+1. Push this repo to GitHub.
+2. Create a new app at **[streamlit.io/cloud](https://streamlit.io/cloud)** pointing to `frontend/app.py`.
+3. Under **Advanced Settings → Secrets**, paste:
+
+```toml
+GEMINI_API_KEY = "your_gemini_api_key"
+PINECONE_API_KEY = "your_pinecone_api_key"
+PINECONE_ENVIRONMENT = "us-east-1"
+PINECONE_INDEX_NAME = "email-agent"
+MONGODB_URI = "your_mongodb_connection_string"
+MONGODB_DATABASE = "email-agent"
+```
+
+4. Deploy.
+
+---
+
+## Testing
+
+```bash
+pytest tests/ -v
+```
+
+Tests cover both agent orchestration (`test_agents.py`) and the underlying services (`test_services.py`).
+
+---
+
+## Roadmap
+
+- [ ] Real Gmail / Outlook OAuth ingestion
+- [ ] Multi-user accounts with row-level access control
+- [ ] Streaming token responses in the chat panel
+- [ ] Tone presets (formal / friendly / terse) for drafts
+- [ ] Analytics dashboard: response-time, action-item burn-down, sender heatmap
+- [ ] Domain-specific prompt packs (sales, HR, engineering, support)
+- [ ] Dockerfile + docker-compose for one-command deployment
+
+---
+
+## Security Notes
+
+- Never commit `.env` files or API keys; rotate any key that leaks
+- Use a secrets manager (AWS Secrets Manager, GCP Secret Manager, or Streamlit Secrets) in production
+- Tighten CORS and add an auth layer (OAuth2 / JWT) before exposing the API publicly
+- Drafts are **never** auto-sent — every send must be a deliberate user action
+
+---
+
+## License
+
+Distributed under the **MIT License**. See `LICENSE` for the full text.
+
+---
+
+<div align="center">
+
+**Built with FastAPI, Streamlit, LangChain, Pinecone, and Gemini.**
+
+*If this project helped you, consider leaving a star.*
+
+</div>
